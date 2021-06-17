@@ -21,7 +21,7 @@ class Input extends InputWidget
             . "\n{$input}";
     }
 
-    protected function getInput()
+    protected function getInput(): string
     {
         if ($this->hasModel()) {
             return Html::activeHiddenInput($this->model, $this->attribute, $this->options);
@@ -36,7 +36,7 @@ class Input extends InputWidget
         $this->initJs($view);
     }
 
-    public function getPickertName()
+    public function getPickertName(): string
     {
         $inputId = $this->getInputId();
         return trim(str_replace(
@@ -46,16 +46,23 @@ class Input extends InputWidget
         ));
     }
 
-    public function getInputId()
+    public function getInputId(): string
     {
         return $this->options['id'];
+    }
+
+    public function getCurrentValue(): string
+    {
+        $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->default;
+        $value = empty($value) ? $this->default : $value;
+        return $value;
     }
 
     public function initJs(View $view)
     {
         $inputId = $this->getInputId();
         $pickertName = $this->getPickertName();
-        $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->default;
+        $value = $this->getCurrentValue();
 
         $js = <<< JS
     const $pickertName = Pickr.create({
