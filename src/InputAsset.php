@@ -8,10 +8,12 @@ use yii\web\YiiAsset;
 class InputAsset extends AssetBundle
 {
 
-  public $sourcePath = '';
-  public $css = [];
+  public $sourcePath = '@npm/simonwep--pickr/';
+  public $css = [
+    'dist/themes/nano.min.css'
+  ];
   public $js = [
-    'simonwep--pickr/dist/pickr.min.js'
+    'dist/pickr.min.js'
   ];
   public $depends = [
     YiiAsset::class,
@@ -22,7 +24,6 @@ class InputAsset extends AssetBundle
    */
   public function init()
   {
-    $this->sourcePath = dirname(dirname(__DIR__)) . '/vendor/npm-asset';
     parent::init();
   }
 }

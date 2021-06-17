@@ -8,8 +8,13 @@ use yii\widgets\InputWidget;
 
 class Input extends InputWidget
 {
+
+    /** @var string - Default hexadecimal color */
+    public $default = '#42445A';
+
     public function run()
     {
+        $this->registerAssets();
         Html::addCssClass($this->options, 'form-control');
         $input = $this->getInput();
         return '<div class="color-picker"></div>'
@@ -28,26 +33,45 @@ class Input extends InputWidget
     {
         $view = $this->getView();
         InputAsset::register($view);
+        $this->initJs($view);
+    }
+
+    public function getPickertName()
+    {
+        $inputId = $this->getInputId();
+        return trim(str_replace(
+            ['-', ' '],
+            '',
+            "pickr{$inputId}"
+        ));
+    }
+
+    public function getInputId()
+    {
+        return $this->options['id'];
     }
 
     public function initJs(View $view)
     {
-        $inputId = $this->options['id'];
+        $inputId = $this->getInputId();
+        $pickertName = $this->getPickertName();
+        $value = $this->hasModel() ? Html::getAttributeValue($this->model, $this->attribute) : $this->default;
+
         $js = <<< JS
-    const pickr = Pickr.create({
+    const $pickertName = Pickr.create({
     el: '.color-picker',
-    default: '#42445A',
-    theme: 'nano', // or 'monolith', or 'nano'
+    default: '$value',
+    theme: 'nano',
 
     swatches: [
         'rgba(244, 67, 54, 1)',
-        'rgba(233, 30, 99, 0.95)',
-        'rgba(156, 39, 176, 0.9)',
-        'rgba(103, 58, 183, 0.85)',
-        'rgba(63, 81, 181, 0.8)',
-        'rgba(33, 150, 243, 0.75)',
-        'rgba(3, 169, 244, 0.7)',
-        'rgba(0, 188, 212, 0.7)',
+        'rgba(233, 30, 99, 1)',
+        'rgba(156, 39, 176, 1)',
+        'rgba(103, 58, 183, 1)',
+        'rgba(63, 81, 181, 1)',
+        'rgba(33, 150, 243, 1)',
+        'rgba(3, 169, 244, 1)',
+        'rgba(0, 188, 212, 1)',
         'rgba(0, 150, 136, 0.75)',
         'rgba(76, 175, 80, 0.8)',
         'rgba(139, 195, 74, 0.85)',
@@ -70,10 +94,10 @@ class Input extends InputWidget
     }
 });
 
-pickr.on('save', (color, instance) => {
-    console.log('Event: "save `$inputId`"', color, instance);
+$pickertName.on('save', (color, instance) => {
+    document.querySelector('#$inputId').value = color.toHEXA();
 }).on('change', (color, source, instance) => {
-    console.log('Event: "change" `$inputId`', color, source, instance);
+    document.querySelector('#$inputId').value = color.toHEXA();
 });
 JS;
         $view->registerJs($js);
