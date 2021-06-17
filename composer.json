@@ -1,0 +1,33 @@
+{
+  "name": "taguz91/yii2-color-pickr",
+  "description": "Yii2 implementation for pickr",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "extension",
+    "color",
+    "picker"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Johnny Garcia",
+      "email": "johnnygar98@hotmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "npm-asset/simonwep--pickr": "^1.8"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "taguz91\\ColorPickr\\": "src"
+    }
+  }
+}
