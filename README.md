@@ -2,6 +2,11 @@ Color picker + Pickr
 ====================
 Yii2 implementation for pickr
 
+[![Latest Stable Version](http://poser.pugx.org/taguz91/yii2-color-pickr/v)](https://packagist.org/packages/taguz91/yii2-color-pickr) 
+[![Total Downloads](http://poser.pugx.org/taguz91/yii2-color-pickr/downloads)](https://packagist.org/packages/taguz91/yii2-color-pickr) 
+[![Latest Unstable Version](http://poser.pugx.org/taguz91/yii2-color-pickr/v/unstable)](https://packagist.org/packages/taguz91/yii2-color-pickr) 
+[![License](http://poser.pugx.org/taguz91/yii2-color-pickr/license)](https://packagist.org/packages/taguz91/yii2-color-pickr)
+
 Installation
 ------------
 
